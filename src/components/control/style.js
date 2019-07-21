@@ -126,6 +126,7 @@ padding-left:5px;
     width: 70%;
         margin-left: 15px;
 }
+
 .ml-2{
 margin-left:2%;}
 .scrollbar

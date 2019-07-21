@@ -124,7 +124,7 @@ class control extends Component{
                         one2facecombine.push(ite);
                     }
                     else if(ite["Pari"].includes("Face à Face")){
-                        one2facecombine.push(ite)
+                        one2facecombine.push(ite);
                     }
                     else{
                         one2faceno.push(ite);
@@ -137,8 +137,8 @@ class control extends Component{
                 let minorrev=[];
                 one2facecombine.map((item)=>{
                     includingvalues.map((items)=>{
-                        if(item["Chiﬀre d’aﬀaires"] !== ""){
-                            if(item["Evénement"].toLowerCase().includes(items.toLowerCase()) &&  parseInt(item["Chiﬀre d’aﬀaires"]) > 3000){
+                        if(item["Chiffre d'affaires"] !== ""){
+                            if(item["Evénement"].toLowerCase().includes(items.toLowerCase()) &&  parseInt(item["Chiffre d'affaires"]) > 3000){
                                 item["blue"]="red";
                                 majorrev.push(item);
                             }
@@ -153,7 +153,7 @@ class control extends Component{
                         !item["Evénement"].toLowerCase().includes(includingvalues[6].toLowerCase())||
                         !item["Evénement"].toLowerCase().includes(includingvalues[7].toLowerCase())
                     ){
-                        if(parseInt(item["Chiﬀre d’aﬀaires"]) > 1000 ){
+                        if(parseInt(item["Chiffre d'affaires"]) > 1000 ){
                             item["blue"]="red";
                             minorrev.push(item);
                         }
@@ -162,7 +162,7 @@ class control extends Component{
                 self.setState({majorrevenue: majorrev, minorrevenue:minorrev } );
                 let allother=[];
                 one2faceno.map((item)=>{
-                        if(item["Chiﬀre d’aﬀaires"] > 500 ){
+                        if(item["Chiffre d'affaires"] > 500 ){
                             item["blue"]="red";
                             allother.push(item);
                         }
@@ -425,10 +425,10 @@ class control extends Component{
                 let indexplus=0;
                 let valuetocheckplus=0;
                 while(indexplus  <= plusmoins.length -3){
-                    if(indexplus <3){
+                    if(indexplus <2){
                         valuetocheckplus=   plusmoins[indexplus]["Cotes Dernière"].replace(",",".");
                     }
-                    if(indexplus >=3){
+                    if(indexplus >=2){
                         if(plusmoins[indexplus]["Evénement"] !== plusmoins[indexplus-1]["Evénement"] ){
                                 valuetocheckplus =plusmoins[indexplus]["Cotes Dernière"].replace(",",".");
                         }
@@ -437,6 +437,7 @@ class control extends Component{
                         }
                         else{
                             if(parseFloat(valuetocheckplus) > parseFloat(plusmoins[indexplus]["Cotes Dernière"].replace(",","."))){
+                                console.log("plus ",plusmoins[indexplus],valuetocheckplus );
                                 plusmoins[indexplus]["blue"]= "red";
                             }
                             valuetocheckplus=   plusmoins[indexplus]["Cotes Dernière"].replace(",",".");
@@ -447,32 +448,26 @@ class control extends Component{
                 let indexiplus=0;
                 let valuetocheckiplus=0;
                 while(indexiplus  <= plusmoins.length -3){
-
-
-                    if(indexiplus<3){
+                    if(indexiplus<2){
                         valuetocheckiplus = plusmoins[indexiplus+1]["Cotes Dernière"].replace(",",".");
-
                     }
-
-                    if(indexiplus >=3){
-                        if(plusmoins[indexiplus]["Evénement"] !== plusmoins[indexiplus-1]["Evénement"] ){
+                    if(indexiplus >=2){
+                        if(plusmoins[indexiplus]["Evénement"] !== plusmoins[indexiplus-1]["Evénement"]   ){
                             valuetocheckiplus =plusmoins[indexiplus+1]["Cotes Dernière"].replace(",",".");
-
                         }
                         else  if(plusmoins[indexiplus]["Pari"] !== plusmoins[indexiplus-1]["Pari"] ){
                             valuetocheckiplus =plusmoins[indexiplus+1]["Cotes Dernière"].replace(",",".");
                         }
                         else{
                             if(parseFloat(valuetocheckiplus) < parseFloat(plusmoins[indexiplus+1]["Cotes Dernière"].replace(",","."))){
+                                console.log("moins ",plusmoins[indexiplus+1],valuetocheckiplus );
                                 plusmoins[indexiplus+1]["blue"]= "red";
                             }
-
                             valuetocheckiplus = plusmoins[indexiplus+1]["Cotes Dernière"].replace(",",".");
                         }
                     }
                     indexiplus=indexiplus+2;
                 }
-
                 plusmoins.map((item)=>{
 
                     strc[item["index"]]= item;
@@ -515,6 +510,14 @@ class control extends Component{
                     results.push(alldatain[i]);
                 }
             }
+            // for(let i=0; i<alldatain.length; i++) {
+            //     // console.log("chifree",alldatain[i]["Chiffre d'affaires"]);
+            //     if(parseInt(alldatain[i]["Chiffre d'affaires"]) > parseInt(value) ) {
+            //         // console.log("chifree",alldatain[i]["Chiffre d'affaires"]);
+            //         results.push(alldatain[i]);
+            //     }
+            // }
+
             this.setState({data:results,itemonpage:20});
             // console.log("data",data);
             // console.log("results",results);
@@ -581,7 +584,7 @@ class control extends Component{
                 errors.push(item);
             }
         })
-        console.log("faceaface erros", errors.length)
+        // console.log("faceaface erros", errors.length)
         if(errors.length>0){
             this.setState({data: errors});
             if(errors.length< 100){
@@ -624,7 +627,7 @@ class control extends Component{
                 errors.push(item);
             }
         })
-        console.log("faceaface erros", errors.length)
+      // /  console.log("faceaface erros", errors.length)
         if(errors.length>0){
             this.setState({data: errors});
             if(errors.length< 100){
@@ -646,7 +649,7 @@ class control extends Component{
                 errors.push(item);
             }
         })
-        console.log("faceaface erros", errors.length)
+        // console.log("faceaface erros", errors.length)
         if(errors.length>0){
             this.setState({data: errors});
             if(errors.length< 100){
@@ -662,7 +665,7 @@ class control extends Component{
     facehandi(){
         let {facefacehandi}= this.state;
         let errors=[];
-        console.log("facefacehandi", facefacehandi.length)
+        // console.log("facefacehandi", facefacehandi.length)
         facefacehandi.map((item)=>{
             if(item["blue"]==="red"){
                 errors.push(item);
@@ -684,13 +687,13 @@ class control extends Component{
     overunder(){
         let {overunder}= this.state;
         let errors=[];
-        // console.log("overunder", overunder.length)
+        console.log("overunder", overunder.length)
         overunder.map((item)=>{
             if(item["blue"]==="red"){
                 errors.push(item);
             }
         })
-        console.log("overunder erros", errors.length)
+        console.log("overunder erros", errors.length, errors)
         if(errors.length>0){
             this.setState({data: errors});
             if(errors.length< 100){
@@ -712,14 +715,12 @@ class control extends Component{
 
         // console.log("headersdata",headers, data)
         // console.log("data at render",data);
-
-
         return(
             <div>
                 <div className="starter-head" >
                     <div className="container-inside">
                         <div className="header">
-                            <span className="header-text" >Contrôle WEB</span>
+                            <span className="header-text" >Controle WEB</span>
                         </div>
                         <div className="empty-space"></div>
                         <Link to="/" className="link1 link">
